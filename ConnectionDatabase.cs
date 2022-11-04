@@ -9,7 +9,7 @@ namespace recall
 {
     public class conection_database
     {
-        public async Task<NpgsqlConnection> ccc ()
+        public async Task<NpgsqlConnection> GetConnection ()
         {
             var connString = "";
             await using var conn = new NpgsqlConnection(connString);
