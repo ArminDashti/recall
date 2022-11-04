@@ -1,10 +1,11 @@
 using Npgsql;
-
+using System.Text.RegularExpressions;
 namespace recall
 {
     public partial class Form1 : Form
     {
         private NpgsqlConnection? dataBaseConnection;
+        private Regex regex;
 
         public Form1()
         {
@@ -50,6 +51,34 @@ namespace recall
         private async void Form1_Load(object sender, EventArgs e)
         {
             InitializeConnection();
+            regex = new Regex("[\u0600-\u06ff]|[\u0750-\u077f]|[\ufb50-\ufc3f]|[\ufe70-\ufefc]");
+
+        }
+
+        private void richTextBox2_TextChanged(object sender, EventArgs e)
+        {
+            if (regex.IsMatch(richTextBox2.Text))
+            {
+                richTextBox2.RightToLeft = RightToLeft.No;
+            }
+            else
+            {
+                richTextBox2.RightToLeft = RightToLeft.Yes;
+
+            }
+        }
+
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        {
+            if (regex.IsMatch(richTextBox1.Text))
+            {
+                richTextBox1.RightToLeft = RightToLeft.No;
+            }
+            else
+            {
+                richTextBox1.RightToLeft = RightToLeft.Yes;
+
+            }
         }
     }
 }
