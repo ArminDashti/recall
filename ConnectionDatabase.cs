@@ -13,6 +13,7 @@ namespace recall
         {
             var connString = "";
             await using var conn = new NpgsqlConnection(connString);
+            
             return conn;
 
         }

@@ -1,4 +1,5 @@
 using Npgsql;
+using System;
 
 namespace recall
 {
@@ -13,8 +14,20 @@ namespace recall
 
         private async Task InitializeConnection()
         {
+            
             var dataGetter = new conection_database();
             dataBaseConnection = await dataGetter.GetConnection();
+            try
+            {
+                await dataBaseConnection.OpenAsync();
+            }
+            catch(Exception exception)
+            {
+                MessageBox.Show(exception.Message);
+            }
+            
+            
+
         }
 
         private async void button1_Click(object sender, EventArgs e)
@@ -22,6 +35,7 @@ namespace recall
             try
             {
                 await using (var cmd = new NpgsqlCommand("SELECT * FROM recall ORDER BY random() LIMIT 1", dataBaseConnection))
+                //await using (var cmd = new NpgsqlCommand("SELECT * FROM recall", dataBaseConnection))
                 await using (var reader = await cmd.ExecuteReaderAsync())
                     while (await reader.ReadAsync())
                     {
@@ -38,6 +52,7 @@ namespace recall
         private async void Form1_Load(object sender, EventArgs e)
         {
             InitializeConnection();
+
         }
     }
 }
