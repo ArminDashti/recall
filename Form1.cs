@@ -11,13 +11,16 @@ namespace recall
         {
             InitializeComponent();
         }
-
+        //Host=localhost;Username=postgres;Password=2142;Database=postgres
         private async void InitializeConnection()
         {
-            var connString = "Host=localhost;Username=postgres;Password=2142;Database=postgres";
-            dataBaseConnection = new NpgsqlConnection(connString);
-            await dataBaseConnection.OpenAsync();
-            FetchData();
+            if(!AppData.connectionString.Equals(""))
+            {
+                dataBaseConnection = new NpgsqlConnection(AppData.connectionString);
+                await dataBaseConnection.OpenAsync();
+                FetchData();
+            }
+
         }
 
         private async void button1_Click(object sender, EventArgs e)
@@ -51,6 +54,7 @@ namespace recall
         private async void Form1_Load(object sender, EventArgs e)
         {
             InitializeConnection();
+            AppData.onStringChanged += InitializeConnection;
             regex = new Regex("[\u0600-\u06ff]|[\u0750-\u077f]|[\ufb50-\ufc3f]|[\ufe70-\ufefc]");
 
         }
@@ -79,6 +83,17 @@ namespace recall
                 richTextBox1.RightToLeft = RightToLeft.No;
 
             }
+        }
+
+        private void quitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form2 settings = new Form2();
+            settings.Show();
         }
     }
 }
