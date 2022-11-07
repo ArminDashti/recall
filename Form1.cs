@@ -19,7 +19,7 @@ namespace recall
         }
         private async void InitializeConnection()
         {
-            var connString = "Host=localhost;Username=;Password=;Database=";
+            var connString = "Host=localhost;Username=postgres;Password=2142;Database=";
             dataBaseConnection = new NpgsqlConnection(connString);
             await dataBaseConnection.OpenAsync();
             FetchData();
@@ -37,15 +37,15 @@ namespace recall
             try
             {
 
-                await using (var cmd = new NpgsqlCommand("SELECT * FROM  ORDER BY random() LIMIT 1", dataBaseConnection))
+                await using (var cmd = new NpgsqlCommand("SELECT * FROM test ORDER BY random() LIMIT 1", dataBaseConnection))
                 await using (var reader = await cmd.ExecuteReaderAsync())
                     while (await reader.ReadAsync())
                     {
                         id_form_recall.Text = reader.GetValue(0).ToString();
-                        titleone.Text = reader.GetValue(1).ToString();
-                        titletwo.Text = reader.GetValue(2).ToString();
-                        source_recall_form.Text = reader.GetValue(3).ToString();
-                        type_recall_form.Text = reader.GetValue(4).ToString();
+                        titleTextBox.Text = reader.GetValue(0).ToString();
+                        titletwo.Text = reader.GetValue(1).ToString();
+                        //source_recall_form.Text = reader.GetValue(3).ToString();
+                        //type_recall_form.Text = reader.GetValue(4).ToString();
                     }
             }
             catch (Exception exception)
@@ -78,15 +78,7 @@ namespace recall
 
         private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
-            if (regex.IsMatch(titleone.Text))
-            {
-                titleone.RightToLeft = RightToLeft.Yes;
-            }
-            else
-            {
-                titleone.RightToLeft = RightToLeft.No;
 
-            }
         }
 
         private void add_Click(object sender, EventArgs e)
@@ -99,12 +91,25 @@ namespace recall
         {
             await using (var cmd = new NpgsqlCommand("UPDATE  SET title_one = @t1, title_two=@t2, _type=@_ty, _source=@s WHERE id = @_id", dataBaseConnection))
             {
-                cmd.Parameters.AddWithValue("t1", titleone.Text);
+                cmd.Parameters.AddWithValue("t1", titleTextBox.Text);
                 cmd.Parameters.AddWithValue("t2", titletwo.Text);
                 cmd.Parameters.AddWithValue("s", source_recall_form.Text);
                 cmd.Parameters.AddWithValue("_ty", type_recall_form.Text);
                 cmd.Parameters.AddWithValue("_id", Convert.ToInt64(id_form_recall.Text));
                 await cmd.ExecuteNonQueryAsync();
+            }
+        }
+
+        private void titleTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if (regex.IsMatch(titleTextBox.Text))
+            {
+                titleTextBox.RightToLeft = RightToLeft.Yes;
+            }
+            else
+            {
+                titleTextBox.RightToLeft = RightToLeft.No;
+
             }
         }
     }

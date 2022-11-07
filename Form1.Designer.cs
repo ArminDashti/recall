@@ -30,10 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.button1 = new System.Windows.Forms.Button();
-            this.titleone = new System.Windows.Forms.RichTextBox();
             this.titletwo = new System.Windows.Forms.RichTextBox();
             this.add = new System.Windows.Forms.Button();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.delete = new System.Windows.Forms.Button();
             this.source_recall_form = new System.Windows.Forms.TextBox();
             this.type_recall_form = new System.Windows.Forms.TextBox();
@@ -42,6 +40,7 @@
             this.filter_type_form_recall = new System.Windows.Forms.TextBox();
             this.id_form_recall = new System.Windows.Forms.TextBox();
             this.update_form_recall = new System.Windows.Forms.Button();
+            this.titleTextBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // button1
@@ -54,16 +53,6 @@
             this.button1.Text = "Next";
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // titleone
-            // 
-            this.titleone.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.titleone.Location = new System.Drawing.Point(18, 55);
-            this.titleone.Name = "titleone";
-            this.titleone.Size = new System.Drawing.Size(1202, 76);
-            this.titleone.TabIndex = 3;
-            this.titleone.Text = "";
-            this.titleone.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
             // 
             // titletwo
             // 
@@ -86,14 +75,6 @@
             this.add.Text = "Add";
             this.add.UseVisualStyleBackColor = true;
             this.add.Click += new System.EventHandler(this.add_Click);
-            // 
-            // menuStrip1
-            // 
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1241, 24);
-            this.menuStrip1.TabIndex = 7;
-            this.menuStrip1.Text = "menuStrip1";
             // 
             // delete
             // 
@@ -165,11 +146,22 @@
             this.update_form_recall.UseVisualStyleBackColor = false;
             this.update_form_recall.Click += new System.EventHandler(this.update_form_recall_Click);
             // 
+            // titleTextBox
+            // 
+            this.titleTextBox.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.titleTextBox.Location = new System.Drawing.Point(18, 55);
+            this.titleTextBox.Multiline = true;
+            this.titleTextBox.Name = "titleTextBox";
+            this.titleTextBox.Size = new System.Drawing.Size(1202, 76);
+            this.titleTextBox.TabIndex = 16;
+            this.titleTextBox.TextChanged += new System.EventHandler(this.titleTextBox_TextChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1241, 586);
+            this.Controls.Add(this.titleTextBox);
             this.Controls.Add(this.update_form_recall);
             this.Controls.Add(this.id_form_recall);
             this.Controls.Add(this.filter_type_form_recall);
@@ -180,11 +172,8 @@
             this.Controls.Add(this.delete);
             this.Controls.Add(this.add);
             this.Controls.Add(this.titletwo);
-            this.Controls.Add(this.titleone);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Recall";
@@ -197,10 +186,8 @@
         #endregion
 
         private Button button1;
-        private RichTextBox titleone;
         private RichTextBox titletwo;
         private Button add;
-        private MenuStrip menuStrip1;
         private Button delete;
         private TextBox source_recall_form;
         private TextBox type_recall_form;
@@ -209,5 +196,6 @@
         private TextBox filter_type_form_recall;
         private TextBox id_form_recall;
         private Button update_form_recall;
+        private TextBox titleTextBox;
     }
 }
