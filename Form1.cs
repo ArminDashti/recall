@@ -59,11 +59,11 @@ namespace recall
         {
             if (regex.IsMatch(richTextBox2.Text))
             {
-                richTextBox2.RightToLeft = RightToLeft.Yes;
+                richTextBox2.RightToLeft = RightToLeft.No;
             }
             else
             {
-                richTextBox2.RightToLeft = RightToLeft.No;
+                richTextBox2.RightToLeft = RightToLeft.Yes;
 
             }
         }
@@ -72,11 +72,11 @@ namespace recall
         {
             if (regex.IsMatch(richTextBox1.Text))
             {
-                richTextBox1.RightToLeft = RightToLeft.Yes;
+                richTextBox1.RightToLeft = RightToLeft.No;
             }
             else
             {
-                richTextBox1.RightToLeft = RightToLeft.No;
+                richTextBox1.RightToLeft = RightToLeft.Yes;
 
             }
         }
