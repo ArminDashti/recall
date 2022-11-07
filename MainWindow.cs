@@ -3,12 +3,12 @@ using System;
 using System.Text.RegularExpressions;
 namespace recall
 {
-    public partial class Form1 : Form
+    public partial class MainWindow : Form
     {
         public static NpgsqlConnection? dataBaseConnection;
         private Regex regex;
         private Int64 _id;
-        public Form1()
+        public MainWindow()
         {
             InitializeComponent();
         }
@@ -19,7 +19,7 @@ namespace recall
         }
         private async void InitializeConnection()
         {
-            var connString = "Host=localhost;Username=postgres;Password=2142;Database=";
+            var connString = "Host=localhost;Username=;Password=;Database=";
             dataBaseConnection = new NpgsqlConnection(connString);
             await dataBaseConnection.OpenAsync();
             FetchData();
@@ -37,15 +37,15 @@ namespace recall
             try
             {
 
-                await using (var cmd = new NpgsqlCommand("SELECT * FROM test ORDER BY random() LIMIT 1", dataBaseConnection))
+                await using (var cmd = new NpgsqlCommand("SELECT * FROM ORDER BY random() LIMIT 1", dataBaseConnection))
                 await using (var reader = await cmd.ExecuteReaderAsync())
                     while (await reader.ReadAsync())
                     {
                         id_form_recall.Text = reader.GetValue(0).ToString();
-                        titleTextBox.Text = reader.GetValue(0).ToString();
-                        titletwo.Text = reader.GetValue(1).ToString();
-                        //source_recall_form.Text = reader.GetValue(3).ToString();
-                        //type_recall_form.Text = reader.GetValue(4).ToString();
+                        titleTextBox.Text = reader.GetValue(1).ToString();
+                        titletwo.Text = reader.GetValue(2).ToString();
+                        source_recall_form.Text = reader.GetValue(3).ToString();
+                        type_recall_form.Text = reader.GetValue(4).ToString();
                     }
             }
             catch (Exception exception)
@@ -74,11 +74,6 @@ namespace recall
                 titletwo.RightToLeft = RightToLeft.No;
 
             }
-        }
-
-        private void richTextBox1_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void add_Click(object sender, EventArgs e)

@@ -28,7 +28,7 @@ namespace recall
             //Form form = new Form1();
             //form.Npg
 
-            NpgsqlConnection dbc = Form1.dataBaseConnection;
+            NpgsqlConnection dbc = MainWindow.dataBaseConnection;
             string titleone = this.titleone.Text;
             string titletwo = this.titletwo.Text;
             string source = this.source.Text;
