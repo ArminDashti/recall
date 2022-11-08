@@ -127,5 +127,10 @@ namespace recall
             Options optionsWindow = new Options();
             optionsWindow.Show();
         }
+
+        private void quitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }
