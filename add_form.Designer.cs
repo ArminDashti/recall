@@ -96,6 +96,7 @@
             this.Controls.Add(this.addbutton);
             this.Name = "add_form";
             this.Text = "add_form";
+            this.Load += new System.EventHandler(this.add_form_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

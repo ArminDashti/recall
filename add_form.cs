@@ -34,7 +34,7 @@ namespace recall
             string source = this.source.Text;
             string typetext = this.typetext.Text;
             int instime = Int32.Parse(this.instime.Text);
-            await using (var cmd = new NpgsqlCommand("INSERT INTO  (title_one, title_two, ins_time, _type, _source) VALUES (@t1, @t2, @i, @ty, @s)", dbc))
+            await using (var cmd = new NpgsqlCommand($"INSERT INTO (title_one, title_two, ins_time, _type, _source) VALUES (@t1, @t2, @i, @ty, @s)", dbc))
             {
                 cmd.Parameters.AddWithValue("t1", titleone);
                 cmd.Parameters.AddWithValue("t2", titletwo);
@@ -44,6 +44,11 @@ namespace recall
                 await cmd.ExecuteNonQueryAsync();
             }
                 MessageBox.Show("Done");
+        }
+
+        private void add_form_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

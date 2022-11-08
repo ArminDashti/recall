@@ -47,7 +47,7 @@ namespace recall
             try
             {
 
-                await using (var cmd = new NpgsqlCommand($"SELECT * {tableName} FROM ORDER BY random() LIMIT 1", dataBaseConnection))
+                await using (var cmd = new NpgsqlCommand($"SELECT * FROM {tableName} ORDER BY random() LIMIT 1", dataBaseConnection))
                 await using (var reader = await cmd.ExecuteReaderAsync())
                     while (await reader.ReadAsync())
                     {
@@ -98,7 +98,7 @@ namespace recall
 
         private async void update_form_recall_Click(object sender, EventArgs e)
         {
-            await using (var cmd = new NpgsqlCommand("UPDATE  SET title_one = @t1, title_two=@t2, _type=@_ty, _source=@s WHERE id = @_id", dataBaseConnection))
+            await using (var cmd = new NpgsqlCommand($"UPDATE {tableName} SET title_one = @t1, title_two=@t2, _type=@_ty, _source=@s WHERE id = @_id", dataBaseConnection))
             {
                 cmd.Parameters.AddWithValue("t1", titleTextBox.Text);
                 cmd.Parameters.AddWithValue("t2", titletwo.Text);
