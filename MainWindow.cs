@@ -1,5 +1,6 @@
 using Npgsql;
 using System;
+using System.Configuration;
 using System.Text.RegularExpressions;
 namespace recall
 {
@@ -8,6 +9,8 @@ namespace recall
         public static NpgsqlConnection? dataBaseConnection;
         private Regex regex;
         private Int64 _id;
+        private string connectionString;
+        private string tableName;
         public MainWindow()
         {
             InitializeComponent();
@@ -17,12 +20,19 @@ namespace recall
         {
 
         }
-        private async void InitializeConnection()
+        public async void InitializeConnection()
         {
-            var connString = "Host=localhost;Username=;Password=;Database=";
-            dataBaseConnection = new NpgsqlConnection(connString);
-            await dataBaseConnection.OpenAsync();
-            FetchData();
+            try
+            {
+                dataBaseConnection = new NpgsqlConnection(connectionString);
+                await dataBaseConnection.OpenAsync();
+                FetchData();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
         }
 
         private async void button1_Click(object sender, EventArgs e)
@@ -37,7 +47,7 @@ namespace recall
             try
             {
 
-                await using (var cmd = new NpgsqlCommand("SELECT * FROM ORDER BY random() LIMIT 1", dataBaseConnection))
+                await using (var cmd = new NpgsqlCommand($"SELECT * {tableName} FROM ORDER BY random() LIMIT 1", dataBaseConnection))
                 await using (var reader = await cmd.ExecuteReaderAsync())
                     while (await reader.ReadAsync())
                     {
@@ -58,6 +68,10 @@ namespace recall
 
         private async void Form1_Load(object sender, EventArgs e)
         {
+            Observer.OnSettingsUpdated += InitializeConnection;
+            var appSettings = ConfigurationManager.AppSettings;
+            connectionString = appSettings.Get("connectionString");
+            tableName = appSettings.Get("tableName");
             InitializeConnection();
             regex = new Regex("[\u0600-\u06ff]|[\u0750-\u077f]|[\ufb50-\ufc3f]|[\ufe70-\ufefc]");
 
@@ -106,6 +120,12 @@ namespace recall
                 titleTextBox.RightToLeft = RightToLeft.No;
 
             }
+        }
+
+        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Options optionsWindow = new Options();
+            optionsWindow.Show();
         }
     }
 }
